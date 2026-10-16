@@ -1,0 +1,84 @@
+{
+  "id": "rea",
+  "server_name": "rea",
+  "label": "REA",
+  "description": "本机软件逆向分析工具：分析原生程序、Electron/JavaScript、托管程序、软件包及运行行为。",
+  "resolution": {
+    "kind": "catalog_platforms"
+  },
+  "platforms": {
+    "macos": {
+      "status": "unverified",
+      "preferred": "native",
+      "resolvers": [
+        {
+          "name": "verified-command",
+          "command": "rea",
+          "args": [
+            "mcp"
+          ]
+        }
+      ],
+      "notes": [
+        "Optional example. Resolve the command and verify the current host and Agent before use."
+      ]
+    },
+    "windows": {
+      "status": "unverified",
+      "preferred": "native",
+      "resolvers": [
+        {
+          "name": "verified-command",
+          "command": "cmd.exe",
+          "args": [
+            "/d",
+            "/c",
+            "rea",
+            "mcp"
+          ]
+        }
+      ],
+      "notes": [
+        "Optional example. Resolve the command and verify the current host and Agent before use."
+      ]
+    },
+    "linux": {
+      "status": "unverified",
+      "preferred": "native",
+      "resolvers": [
+        {
+          "name": "verified-command",
+          "command": "rea",
+          "args": [
+            "mcp"
+          ]
+        }
+      ],
+      "notes": [
+        "Optional example. Resolve the command and verify the current host and Agent before use."
+      ]
+    },
+    "wsl": {
+      "status": "unverified",
+      "preferred": "native",
+      "resolvers": [
+        {
+          "name": "verified-command",
+          "command": "rea",
+          "args": [
+            "mcp"
+          ]
+        }
+      ],
+      "notes": [
+        "Optional example. Resolve the command and verify the current host and Agent before use."
+      ]
+    }
+  },
+  "install_notes": [
+    "Read docs/extensions.md and the upstream REA installation guide.",
+    "Install the selected pinned version locally; do not put packages in the shared folder.",
+    "Preview current-Agent configuration, apply within user authorization, reconnect, then make a real supported tool call."
+  ],
+  "safe_to_share": true
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Shared Evolution"
+  short_description: "复盘对话与任务，组织共享体系改进审阅、恢复及实际使用验证"
+  default_prompt: "使用 $agent-shared-evolution 复盘最近可用任务，检查已有覆盖并准备 Agent Shared 改进审阅包。"

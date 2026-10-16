@@ -1,0 +1,278 @@
+{
+  "version": 1,
+  "description": "Original core implementation exported for the first public release; source runtime state and personal content excluded. Public adaptations may change file hashes.",
+  "files": [
+    {
+      "path": ".agents/skills/agent-shared-skills/SKILL.md",
+      "source_sha256": "cd339c0f2abd3caaa72dbeb13fb7d2976c8651a4324ad643fc422aa56c2666eb"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/AGENTS.md",
+      "source_sha256": "98dcaf7f46471bd21a56cfe69356214be33380d409febfb750065da4675e6bf8"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/CLAUDE.md",
+      "source_sha256": "c8904d19a968e0779275f1c8655cfc77c5ffcce43315d00d50fbf0575389c0bc"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/ROUTING.md",
+      "source_sha256": "b2f75cb15ba7979d24ad485a52685acbb880121cd8033bf4c8a3dbfb0f4e17e9"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/LIFECYCLE.md",
+      "source_sha256": "18829b2b963eaeb8839045b8e16455fe6389dfebddeec57b4756c76aab485cde"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/UPSTREAM_SOURCES.md",
+      "source_sha256": "8036f7e7f53f43315a41139c7afd87dc95257c51867411d8802efafede19b87d"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/UPDATE_POLICY.md",
+      "source_sha256": "49cade284f04f0f3cfbffee47a2ee17beff555939117a5707e8b1e2212b05102"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/PATHS.md",
+      "source_sha256": "43e95687ef88d5dbfc75fe42b3fd819a53c51cd8a4986bee38c53742276625b6"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/CATALOG.md",
+      "source_sha256": "f0e353b1351e4a4a3c72e5305bc20d42843417afa4227a11a949bcf0e09ae420"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/agent_targets.json",
+      "source_sha256": "614b900701769b8203f85fb846cbe08a9d03e1d26e52ef6eabe8932af52de75a"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/AGENT_TARGETS.md",
+      "source_sha256": "d057237d2244aa6a11fb5714599ee2d90252ae3275bf30b89740253cd8bc2488"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/EXTERNAL_CAPABILITIES.md",
+      "source_sha256": "deba9fb23fb4cfbc076f2406ae704b7a598dbb14f856e9e7ba7a11f9287fb6f7"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/references/QUICK_START.md",
+      "source_sha256": "5eefe01fad436f57da57ec277e7bc9dd836985e7a7650bcadd741f72f5da161f"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/tests/test_sync_agent_skill_links.py",
+      "source_sha256": "7c81c32ec7ddb0cd49ffa078c6784cd4ec4b3ee8f4f85da5e0e24bd6f266020a"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/tests/test_safe_maintenance.py",
+      "source_sha256": "e3d274fc6b2f656572897095da370503bbe7a96d0c43a4211e80708815d8daef"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/tests/test_memory_routing_contract.py",
+      "source_sha256": "865a0f359ad6e3146c064bec6328c2fd64822d62b2288b7c0879adfc534b45b8"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/tests/test_audit_shared_skills.py",
+      "source_sha256": "830306202ad27b2e5018c14394569c7d8727560d73f9b788c9798a7e5f54b3dd"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/agents/openai.yaml",
+      "source_sha256": "06eae620301778c02edb07c4192a264fe89e2a60febf25d0039d2cdd52d9918a"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/scripts/resolve_skills_root.py",
+      "source_sha256": "a7cbd02ee12cc68e5a7e27b9b052ced10b17da1cbf3a6ddd9a62f9ae55c4b63c"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/scripts/sync_agent_skill_links.py",
+      "source_sha256": "2b3e2030396cd984e5684d82b2aa8f843685f1a9abd8614e096f776bc9762d3e"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/scripts/skill_metadata.py",
+      "source_sha256": "f6d3c46e7052f56c0034743ec26bd5a7d0675cd92c0b1232241048864fb9ee39"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/scripts/audit_shared_skills.py",
+      "source_sha256": "cf121340b841f70cb55915e69978f5eabecf7eb0bf1991b81d5ac8ed7d8dcea5"
+    },
+    {
+      "path": ".agents/skills/agent-shared-skills/scripts/summarize_shared_skills.py",
+      "source_sha256": "e502b4d69240439e179a7490bf3938e4612ec4cbb767ad8e25a81c9d0d2f573f"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/SKILL.md",
+      "source_sha256": "1d833eb886cdf41b6f833dbc3573dd62f09ea827b6241df9760572cb214269e9"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/AGENTS.md",
+      "source_sha256": "e4b8d91fd817dc457ebe1bbf691a06af924b32dc352f8e474e05cdd1b0400747"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/CLAUDE.md",
+      "source_sha256": "75915da228f182054d46ede01e834bcfc6755efec8bb2a75f1fcbf0595f687b9"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/references/EVOLUTION_AUDIT.md",
+      "source_sha256": "e26efcc1998f0c07c87b530d564cdc06ffcf37676bd30d6a907d235860a807bb"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/references/TRIGGER_POLICY.md",
+      "source_sha256": "25a1e54fba28c82e984c1ccafda96e8329a94a43fb6c9dfbe1bf9a389b1dab36"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/references/PATHS.md",
+      "source_sha256": "8398978c06b931f473ee03e35956f51ffae75c5ceeb2b50474aede73788d1f6c"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/references/QUERY.md",
+      "source_sha256": "52b833ad1cffc85295ca8aa8ecf9b02b641404d7d09fe8354af885e6bc6e017a"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/references/READ_PROTOCOL.md",
+      "source_sha256": "6002624fc301305b7e2585a3158aec5471a80d622e881497ad88a6ca9f4006c8"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/references/WRITE_POLICY.md",
+      "source_sha256": "ebeea666825d31231cab4fb4f739f9c2868e87bf17e4969d1ca7e6c6c706daf3"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/tests/test_lint_memories.py",
+      "source_sha256": "410acd4e2dbbdf0c3c642d73b89b2fe4e502af63cb967f124e688e96297d121d"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/tests/test_query_memories.py",
+      "source_sha256": "b5f6d43e57ef3272d58d8d4719e95220942826c1944a37224764eb7e398a03fd"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/tests/test_resolve_memories_root.py",
+      "source_sha256": "fdd6bbc4a3bf09ef56a633211f0a7cd307354c793241c52b18233cb209d6e1d2"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/tests/test_trigger_policy_contract.py",
+      "source_sha256": "ceb383f9ce3f4b7748e84f3b6152984cfafde3bbc37d94235968703c7976d851"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/agents/openai.yaml",
+      "source_sha256": "61833e3bf21403611a0538741ef10fe061ad7ed86ffbf6cb8835a8261fe7edf2"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/scripts/lint_memories.py",
+      "source_sha256": "aaef99be981d82ff7ec78ca53caa75f3181aa24b6d704b50d5ef9e2b9c061faa"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/scripts/query_memories.py",
+      "source_sha256": "4dc4dfd85a40c830a0235870c3b7efe80f999898253179aac9beded08ef72161"
+    },
+    {
+      "path": ".agents/skills/agent-shared-memories/scripts/resolve_memories_root.py",
+      "source_sha256": "fe88c0a1391c4fb56b7c16b740123a7e2a7cca0f851a70aba256b15340299966"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/SKILL.md",
+      "source_sha256": "d1172fb72082f68a5f535609ad80dbf0a3d75d0a589b3b3f1c0cbc5bd0a60a7b"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/references/OPEN_DESIGN.md",
+      "source_sha256": "17572f4a8381ee082f039d3d774d8656b416ac266d74d74a285286591cadf4ac"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/references/UPDATE_POLICY.md",
+      "source_sha256": "a3c446067890058237361949e4829646d11bd660f666d73b1bb6fa53e5f55310"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/references/PATHS.md",
+      "source_sha256": "7a5418df8895ccadfd6cce83dc268355066946f30fe27b8fe0a5481ff393d755"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/references/AGENT_CONFIGS.md",
+      "source_sha256": "b2b0423c89d3a7df22ef3bf823e3cc8a8d6648e3e1ee4ceac535af44c50c7766"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/references/REGISTRY.md",
+      "source_sha256": "92efd09b6c2a29996f9eaa981d94142a4ef4843842a98d9b60ead56b94ef2821"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/tests/test_sync_agent_mcp.py",
+      "source_sha256": "5ad8e455ba5bbcc114331d420c25ede0124396fb184730bad358591985ae4883"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/agents/openai.yaml",
+      "source_sha256": "3315c48f150d2eb236b27cced8325bf6d601a12a12da1cf823b63df882920626"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/scripts/audit_shared_mcps.py",
+      "source_sha256": "d51b7c40a12c93da843d7140619520c97c623082d4a03a9f78aa5d401de8d601"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/scripts/sync_agent_mcp.py",
+      "source_sha256": "33aa54fab40c4d4fbec6898c5202c5e4541af87ff97bf64d032ff606b78daf8e"
+    },
+    {
+      "path": ".agents/skills/agent-shared-mcps/scripts/resolve_mcp_root.py",
+      "source_sha256": "5d7b63e4b607fc063eeaa93c5e2edb7d03bbf0545b7e06e1c9dba9f94dc49f3e"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/SKILL.md",
+      "source_sha256": "99c481a9ee404c7dacdf8948bf3e57694ee2b9772ce6458a8a31ba1fb529fc7e"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/references/EVIDENCE.md",
+      "source_sha256": "639531ae1314a6048c9888a5d33abc64b07f15b1e22ef79b2e4eb82589b2c5cb"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/references/APPLY.md",
+      "source_sha256": "813af9cfe2ce27ab044bcf870495a5a345bc04affb79b722b60b8f7939d930a5"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/references/PLATFORMS.md",
+      "source_sha256": "d3b0c27ff9fd2d66e7a777b8a0b2718ad77c8ad9776fbfe4027f7119e58c6283"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/references/REVIEW.md",
+      "source_sha256": "8a29209a54d52adc11ccede82db9132ae6f3ad149337bb46e99becda234ca0b0"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/tests/test_batch_guard.py",
+      "source_sha256": "fd9b0cbb2ce58d203aef8a8c35a55eb57e8414f38d712dc60f1a706250a8ca87"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/tests/test_evidence.py",
+      "source_sha256": "95d1fbdfc19572adafe29e36586ccf0d67b51573fc2bcb48f6aea275c3fba566"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/tests/test_review_contract.py",
+      "source_sha256": "d6a3fc4a3d9d38f3c5f3ea4c663ac091aad3aa00f74c23282b28b5563eb3ac20"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/agents/openai.yaml",
+      "source_sha256": "54f851a999480eb550b65fc6a42e6850b683e8baca5623510255c548def1f526"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/scripts/review_contract.py",
+      "source_sha256": "1b336e22b1f8cac216b9bd4544c638aff9acef2308c380f1e081402bab21640c"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/scripts/batch_guard.py",
+      "source_sha256": "9581b181bb0d31b31a73a9d2030265659d9df238ca2f394fd6db92cf36afd2ee"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/scripts/evidence.py",
+      "source_sha256": "1437c52a16e24a5e9f148da0afe14e3cae49008b6c2f757ad23cf3c61b59508a"
+    },
+    {
+      "path": ".agents/skills/agent-shared-evolution/templates/review-package.json",
+      "source_sha256": "c60996e59d538fd3ff729a90c90f9fd4cdf9c5a08ca312d374d1d04cc1716623"
+    },
+    {
+      "path": ".agents/scripts/shared_environment.py",
+      "source_sha256": "ab8fa64ef3f894fdbe4b2fa3c69ffa640c01a194121d78647d0fed633212b85c"
+    },
+    {
+      "path": ".agents/scripts/generate-shared-system-readme.py",
+      "source_sha256": "d85c08da2cdcb2339f7f6efea366e7042c66892697c7792293656b507eb43044"
+    },
+    {
+      "path": ".agents/scripts/wsl-shared-system-sync.sh",
+      "source_sha256": "02d6ee126a15b341b962ed4ee71e783856567d648f4a2c66cdffebf27b8b9518"
+    },
+    {
+      "path": ".agents/scripts/windows-wsl-shared-sync.cmd",
+      "source_sha256": "8c4940b6c5f61b411bf55d13280a8c2c0da17132737262f183418f539c7ed50e"
+    }
+  ]
+}

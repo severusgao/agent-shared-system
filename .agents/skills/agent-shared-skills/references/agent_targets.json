@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "targets": [
+    {
+      "id": "codex",
+      "label": "Codex",
+      "enabled": true,
+      "supports_skills": true,
+      "skill_dirs": {
+        "macos": ["$HOME/.codex/skills"],
+        "linux": ["$HOME/.codex/skills"],
+        "windows": ["%USERPROFILE%\\.codex\\skills"]
+      },
+      "link_strategy": {
+        "macos": "symlink",
+        "linux": "symlink",
+        "windows": "junction"
+      }
+    },
+    {
+      "id": "claude",
+      "label": "Claude Code",
+      "enabled": true,
+      "supports_skills": true,
+      "skill_dirs": {
+        "macos": ["$HOME/.claude/skills"],
+        "linux": ["$HOME/.claude/skills"],
+        "windows": ["%USERPROFILE%\\.claude\\skills"]
+      },
+      "link_strategy": {
+        "macos": "symlink",
+        "linux": "symlink",
+        "windows": "junction"
+      }
+    },
+    {
+      "id": "hermes",
+      "label": "Hermes",
+      "enabled": true,
+      "supports_skills": true,
+      "skill_dirs": {
+        "macos": ["$HOME/.hermes/skills"],
+        "linux": ["$HOME/.hermes/skills"],
+        "windows": ["%USERPROFILE%\\.hermes\\skills"]
+      },
+      "link_strategy": {
+        "macos": "symlink",
+        "linux": "symlink",
+        "windows": "junction"
+      }
+    },
+    {
+      "id": "gemini",
+      "label": "Gemini",
+      "enabled": true,
+      "supports_skills": true,
+      "skill_dirs": {
+        "macos": ["$HOME/.gemini/skills"],
+        "linux": ["$HOME/.gemini/skills"],
+        "windows": ["%USERPROFILE%\\.gemini\\skills"]
+      },
+      "link_strategy": {
+        "macos": "symlink",
+        "linux": "symlink",
+        "windows": "junction"
+      }
+    },
+    {
+      "id": "opencode",
+      "label": "OpenCode",
+      "enabled": true,
+      "supports_skills": true,
+      "skill_dirs": {
+        "macos": ["$HOME/.opencode/skills"],
+        "linux": ["$HOME/.opencode/skills"],
+        "windows": ["%USERPROFILE%\\.opencode\\skills"]
+      },
+      "link_strategy": {
+        "macos": "symlink",
+        "linux": "symlink",
+        "windows": "junction"
+      }
+    },
+    {
+      "id": "workbuddy",
+      "label": "WorkBuddy",
+      "enabled": true,
+      "supports_skills": true,
+      "skill_dirs": {
+        "macos": ["$HOME/.workbuddy/skills"],
+        "linux": ["$HOME/.workbuddy/skills"],
+        "windows": ["%USERPROFILE%\\.workbuddy\\skills"]
+      },
+      "link_strategy": {
+        "macos": "symlink",
+        "linux": "symlink",
+        "windows": "junction"
+      }
+    },
+    {
+      "id": "cursor",
+      "label": "Cursor",
+      "enabled": true,
+      "supports_skills": true,
+      "skill_dirs": {
+        "macos": ["$HOME/.cursor/skills-cursor"],
+        "linux": ["$HOME/.cursor/skills-cursor"],
+        "windows": ["%USERPROFILE%\\.cursor\\skills-cursor"]
+      },
+      "link_strategy": {
+        "macos": "symlink",
+        "linux": "symlink",
+        "windows": "junction"
+      }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Shared MCPs"
+  short_description: "跨系统共享 MCP 注册、安装、审计、修复与 Agent 配置治理"
+  default_prompt: "Use $agent-shared-mcps to inspect, install, audit, or update shared MCP registrations across agents and systems."

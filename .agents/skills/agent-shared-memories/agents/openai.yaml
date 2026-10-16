@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Shared Memories"
+  short_description: "跨系统共享记忆的按需查询、条件核对、有据归纳、修订撤回与授权维护"
+  default_prompt: "使用 $agent-shared-memories 按需查询共享记忆与既有复盘，核对来源和完整适用条件；检查强信号及新增或修订差异，沿用当前授权维护，否则提交准确提案。"

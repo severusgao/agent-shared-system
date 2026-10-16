@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "review_id": "actual-review-id",
+  "coverage_ref": "coverage.json",
+  "candidates": [
+    {
+      "id": "candidate-1",
+      "proposal_key": "stable-target-and-change-key",
+      "status": "proposed",
+      "problem": "实际问题",
+      "cause": "rule_missing",
+      "owner": "skills",
+      "evidence_ids": [
+        "actual-evidence-id"
+      ],
+      "existing_coverage": "实际检查过的已有覆盖",
+      "targets": [
+        "skills/actual-skill/SKILL.md"
+      ],
+      "exact_change": "准确文字或行为差异；引用同包附件时在 change_artifacts 中登记其摘要。",
+      "impact": "macOS、Windows、WSL 与受影响 Agent",
+      "validation": "可检查的成功条件和方法",
+      "rollback": "本批完成前保留临时旧内容；失败按本批清单恢复仍匹配作者摘要的写入，恢复验证通过后清理。成功完成约定验证后自动清理临时副本，之后不再承诺旧版本恢复。",
+      "baseline": {
+        "skills/actual-skill/SKILL.md": null
+      },
+      "platform_assessment": {
+        "macos": {
+          "applies": true,
+          "impact": "共享规则适用；从本机实际入口解析路径和依赖。",
+          "verification_status": "unverified",
+          "validation": "核对批次摘要、实际入口及新 Agent 代表性使用。"
+        },
+        "windows": {
+          "applies": true,
+          "impact": "共享规则适用；动态发现用户、盘符和 Agent，不沿用 Mac 路径。",
+          "verification_status": "unverified",
+          "validation": "在目标 Windows 核对文件、入口及代表性使用；未实测保持 unverified。"
+        },
+        "wsl": {
+          "applies": true,
+          "impact": "共享规则适用；按具体发行版发现 Linux 路径、权限和依赖。",
+          "verification_status": "unverified",
+          "validation": "在目标发行版核对入口及代表性使用；不以宿主 Windows 验证代替。"
+        }
+      },
+      "proposal_revision": 1,
+      "proposal_digest": "d3f22339ba16dde0edfeb5bf18518fa94d24e3e0f7b118e613e7255dac7a937a",
+      "change_artifacts": {}
+    }
+  ]
+}

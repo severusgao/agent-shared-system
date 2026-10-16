@@ -1,0 +1,60 @@
+{
+  "id": "open-design",
+  "server_name": "open-design",
+  "label": "Open Design",
+  "description": "Synthetic integration-test fixture; not an installed capability.",
+  "resolution": {
+    "kind": "open_design_install_info",
+    "preferred_endpoint": "/api/mcp/install-info",
+    "avoid_hardcoded_port": true,
+    "fallback": {
+      "command": "od",
+      "args": [
+        "mcp",
+        "--daemon-url",
+        "http://127.0.0.1:7456"
+      ],
+      "warning": "Use only when od is verified as the Open Design CLI and the daemon is actually on port 7456."
+    }
+  },
+  "platforms": {
+    "macos": {
+      "status": "native",
+      "preferred": "native",
+      "resolvers": [
+        "local-install-info"
+      ]
+    },
+    "windows": {
+      "status": "native",
+      "preferred": "native",
+      "resolvers": [
+        "local-install-info"
+      ],
+      "discovery": [
+        "explicit --daemon-url",
+        "OD_DAEMON_URL or OPEN_DESIGN_DAEMON_URL",
+        "Windows loopback listener discovery by Get-NetTCPConnection or netstat",
+        "127.0.0.1:7456 compatibility fallback only"
+      ]
+    },
+    "linux": {
+      "status": "unsupported",
+      "resolvers": []
+    },
+    "wsl": {
+      "status": "unverified",
+      "fallback": "bridge",
+      "resolvers": [
+        "local-install-info"
+      ]
+    }
+  },
+  "install_notes": [
+    "Open Design App or daemon must be installed and running on the current machine.",
+    "Packaged desktop mode can use dynamic loopback ports and sidecar IPC; prefer /api/mcp/install-info.",
+    "Do not assume /usr/bin/od is Open Design.",
+    "For Codex, verify with codex mcp list after installation."
+  ],
+  "safe_to_share": true
+}

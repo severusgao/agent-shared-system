@@ -1,0 +1,29 @@
+# User data and machine state must never enter the public repository.
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+.env
+.env.*
+!.env.example
+*token*.txt
+*.key
+*.pem
+*.db
+*.sqlite*
+*.log
+.agents/state/*.json
+.agents/mcp/state/*.json
+.agents/skills/*/state/*.json
+.agents/evolution/*/
+.agents/evolution/decisions.jsonl
+.agents/memories/USER_PROFILE.md
+.agents/memories/AGENT_PROFILES.md
+.agents/memories/ENVIRONMENT.md
+# Personal installation uses release ZIP; the source checkout is for contributors.
+dist/
+build/
+
+!.agents/state/*.example.json
+!.agents/mcp/state/*.example.json
+!.agents/skills/*/state/*.example.json

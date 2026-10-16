@@ -1,0 +1,41 @@
+{
+  "agents": {
+    "codex": {
+      "label": "Codex",
+      "strategy": "cli",
+      "bin": "codex",
+      "env_flag": "--env",
+      "add_prefix": ["mcp", "add"],
+      "remove_prefix": ["mcp", "remove"],
+      "list_args": ["mcp", "list"]
+    },
+    "claude": {
+      "label": "Claude Code",
+      "strategy": "cli",
+      "bin": "claude",
+      "env_flag": "-e",
+      "add_prefix": ["mcp", "add", "--scope", "user"],
+      "remove_prefix": ["mcp", "remove", "--scope", "user"],
+      "list_args": ["mcp", "list"]
+    },
+    "cursor": {
+      "label": "Cursor",
+      "strategy": "json",
+      "config_path": "~/.cursor/mcp.json",
+      "key_path": ["mcpServers"],
+      "entry_extra": {"type": "stdio"}
+    },
+    "opencode": {
+      "label": "OpenCode",
+      "strategy": "json",
+      "config_path": "~/.config/opencode/opencode.json",
+      "key_path": ["mcp"],
+      "entry_shape": "opencode-local"
+    },
+    "hermes": {
+      "label": "Hermes",
+      "strategy": "manual",
+      "reason": "Hermes profiles and config schema can differ; print a snippet until the current profile format is verified."
+    }
+  }
+}
