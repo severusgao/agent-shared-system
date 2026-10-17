@@ -62,8 +62,8 @@ def main():
         spec = importlib.util.spec_from_file_location("lint_setup", copy / "scripts/setup.py")
         setup = importlib.util.module_from_spec(spec); spec.loader.exec_module(setup); setup.initialize_missing()
         for cmd in [
-            [sys.executable, "-B", str(copy / ".agents/skills/agent-shared-memories/scripts/lint_memories.py"), "--root", str(copy / ".agents/memories")],
-            [sys.executable, "-B", str(copy / ".agents/scripts/generate-shared-system-readme.py"), "--root", str(copy), "--check"],
+            [sys.executable, "-X", "utf8", "-B", str(copy / ".agents/skills/agent-shared-memories/scripts/lint_memories.py"), "--root", str(copy / ".agents/memories")],
+            [sys.executable, "-X", "utf8", "-B", str(copy / ".agents/scripts/generate-shared-system-readme.py"), "--root", str(copy), "--check"],
         ]:
             result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
             if result.returncode: errors.append(result.stdout + result.stderr)

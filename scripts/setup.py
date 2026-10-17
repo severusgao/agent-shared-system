@@ -104,7 +104,7 @@ def prepare_dependencies(home: Path) -> None:
 
 
 def helper(target: Path, local_root: Path, *, unified: bool = False) -> None:
-    cmd = [sys.executable, "-B", str(SHARED / "skills/agent-shared-skills/scripts/sync_agent_skill_links.py"),
+    cmd = [sys.executable, "-X", "utf8", "-B", str(SHARED / "skills/agent-shared-skills/scripts/sync_agent_skill_links.py"),
            "--shared-root", str(SHARED / "skills"), "--local-root", str(local_root),
            "--target-dir", str(target), "--target-id", "unified" if unified else "selected-agent",
            "--create-roots", "--no-record", "--apply", "--yes", "--format", "json"]

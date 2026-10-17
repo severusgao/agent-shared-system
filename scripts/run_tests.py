@@ -2,6 +2,7 @@
 """Run tests against an initialized temporary source, never the user's installation."""
 from pathlib import Path
 import importlib.util
+import os
 import shutil
 import subprocess
 import sys
@@ -20,7 +21,7 @@ def main():
         dirs = [root / "tests", root / ".agents/tests", *sorted((root / ".agents/skills").glob("*/tests"))]
         for directory in dirs:
             print(f"Testing {directory.relative_to(root)}", flush=True)
-            result = subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(directory)], cwd=root)
+            result = subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(directory)], cwd=root, env={**os.environ, "PYTHONUTF8": "1"})
             if result.returncode:
                 return result.returncode
     return 0
