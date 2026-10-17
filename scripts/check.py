@@ -20,7 +20,7 @@ def main():
     errors = []
     files = source_files()
     for p in files:
-        rel = str(p.relative_to(ROOT))
+        rel = p.relative_to(ROOT).as_posix()
         if p.is_symlink(): errors.append(f"Source must not contain symlinks: {rel}")
         if p.name in {".env", ".DS_Store"} or p.suffix in {".key", ".pem", ".sqlite", ".db", ".log"}:
             errors.append(f"Forbidden release file: {rel}")

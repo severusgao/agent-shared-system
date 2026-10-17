@@ -64,8 +64,12 @@ class EvidenceTests(unittest.TestCase):
                   message("user", "open task", id="last")])
             jsonl(root / "sessions/child.jsonl", [codex("session_meta", {"id": "child", "source": {"subagent": "parent"}}), codex("session_meta", {"id": "main", "history_base": {"thread_id": "main"}}), message("user", "inherited")])
             result = e.collect([e.source("codex", "default", root)], END, since=START)
-            self.assertEqual([r["excerpt"] for r in result["evidence"]], ["real instruction", "open task"])
-            self.assertEqual([r["outcome"] for r in result["evidence"]], ["aborted", "open"])
+            # Equal timestamps are ordered by event digest, which includes environment
+            # identity. Verify content/outcome association rather than one host's hash order.
+            self.assertEqual({r["excerpt"]: (r["turn_id"], r["outcome"]) for r in result["evidence"]},
+                             {"real instruction": ("one", "aborted"), "open task": ("two", "open")})
+            keys = [(r["timestamp_utc"], r["event_id"]) for r in result["evidence"]]
+            self.assertEqual(keys, sorted(keys))
 
     def artifact_package(self, name="patches/fixture.diff", content=b"fixture difference\n"):
         package = json.loads((Path(__file__).resolve().parents[1] / "templates/review-package.json").read_text(encoding="utf-8"))
