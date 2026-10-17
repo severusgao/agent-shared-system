@@ -11,3 +11,5 @@ Logos identify example clients; they do not imply endorsement or verified compat
 | OpenCode | https://opencode.ai/favicon-96x96-v3.png |
 
 Use product names without logos if your redistribution context requires separate permission.
+
+The same unchanged icons are also stored under `assets/agents/` for the README tables. Text-only project badges are maintained by this project and imply no vendor endorsement.

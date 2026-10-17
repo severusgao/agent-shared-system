@@ -1,8 +1,10 @@
 # 首次使用与第二台电脑
 
+[English](getting-started.en.md) · **简体中文** · [项目首页](../README_CN.md)
+
 ## 先准备
 
-1. 选择同步工具。可选 iCloud Drive 或开源的 Syncthing，也可使用支持本地文件副本的其他工具；团队选择支持成员独立账号和目录授权的方案，不共用个人 Apple ID。独立 Linux 不假设存在官方 iCloud 客户端，可选支持 Linux 的 Syncthing 等同步工具。
+1. 选择同步工具。以 iCloud Drive 为主要示例，也可选择开源的 Syncthing，也可使用支持本地文件副本的其他工具；团队选择支持成员独立账号和目录授权的方案，不共用个人 Apple ID。独立 Linux 不假设存在官方 iCloud 客户端，可选支持 Linux 的 Syncthing 等同步工具。
 2. 下载 GitHub Release 的版本 ZIP 并解压。把整个项目放到最终使用的同步目录，确认隐藏的 .agents 目录也完整保留、文件已下载到本地。先选定位置，再创建本机链接；不要在安装后随意移动源目录。
 3. 当前系统安装 Python 3.12+ 和至少一个 Agent。Git 克隆不是使用前提，Node、Docker、数据库和服务器不是核心前置条件。
 
@@ -15,7 +17,7 @@
 
 Syncthing 交换新内容需要设备同时在线并可连接。办公室与家中设备若从不同时在线，需要第三台持有文件的电脑或 NAS 接续同步。该节点不必运行记忆服务；已经同步的本地文件可离线读取。详情见[官方 FAQ](https://docs.syncthing.net/users/faq.html#what-is-syncthing)。
 
-WSL 优先复用 Windows 已同步的项目目录，由 Windows 端管理文件同步，发行版内单独准备 Agent 与依赖。同步完成仍需分别验证 Agent 发现和实际查询。本项目尚未做 Syncthing 的跨设备实测，冲突处理仍遵循下方团队约定。
+WSL 优先复用 Windows 已同步的项目目录，由 Windows 端管理文件同步，发行版内单独准备 Agent 与依赖。同步完成仍需分别验证 Agent 发现和实际查询。Syncthing 作为外部同步选项介绍，冲突处理遵循下方团队约定。
 
 ## 双击 / 运行入口
 

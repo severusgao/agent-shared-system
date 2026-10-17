@@ -8,6 +8,8 @@ subtitle: Agent Shared System · 开源首页图稿
 lang: zh
 ---
 
+[English](overview.en.md) · **简体中文** · [项目首页](../README_CN.md)
+
 技能、记忆与规则跨设备共享。工具在各机运行，凭据留在本地。
 
 ## A 多系统如何连接 {meta="文件同步 · 本机执行"}

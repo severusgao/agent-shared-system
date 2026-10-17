@@ -1,5 +1,7 @@
 # 可选扩展
 
+[English](extensions.en.md) · **简体中文** · [项目首页](../README_CN.md)
+
 首版只自带四项核心治理能力。下载框架不等于安装所有业务 CLI、模型、MCP 或 Agent。
 
 ## 添加一个扩展

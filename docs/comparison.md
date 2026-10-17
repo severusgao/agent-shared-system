@@ -1,5 +1,7 @@
 # 与 TencentDB Agent Memory 的选型对比
 
+[English](comparison.en.md) · **简体中文** · [项目首页](../README_CN.md)
+
 TencentDB Agent Memory 是一套功能完整的服务化记忆方案，提供记忆分层处理、管理面板、资产组织、权限及 Agent 接入。它在集中运营、多用户权限和自动处理方面有明确价值；这里比较部署与协作取舍，不给出未经实测的质量排名。
 
 Agent Shared System 选择另一条路径：用可直接阅读的文件维护技能、长期记忆和规则，通过同步工具送到各机本地，再由 Agent 按需读取、提炼和审阅。

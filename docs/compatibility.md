@@ -1,5 +1,7 @@
 # 兼容性与验证边界
 
+[English](compatibility.en.md) · **简体中文** · [项目首页](../README_CN.md)
+
 框架面向 macOS、Windows、独立 Linux 和 WSL。支持目录模板不等于当前版本客户端已加载；客户端发现和工具能力必须在实际设备验证。
 
 | 环境 | 接入方式 | 首次公开版验证 |
