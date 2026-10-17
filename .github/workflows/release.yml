@@ -1,7 +1,11 @@
 name: Build release
 on:
+  push:
+    branches: [main]
+    paths: ['scripts/build_release.py', '.github/workflows/release.yml']
   release:
     types: [published]
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -10,15 +14,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.release.tag_name }}
+          ref: ${{ github.event.release.tag_name || github.sha }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
       - run: python -B scripts/run_tests.py
       - run: python -B scripts/build_release.py
-      - name: Upload audited version ZIP
+      - name: Publish version and preserve existing assets
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
-        run: gh release upload "$RELEASE_TAG" dist/*
+          REQUESTED_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          version="$(python -c 'import runpy; print(runpy.run_path("scripts/build_release.py")["VERSION"])')"
+          tag="v${version}"
+          if [[ -n "$REQUESTED_TAG" && "$REQUESTED_TAG" != "$tag" ]]; then
+            echo "Release tag does not match the package version."
+            exit 1
+          fi
+          if gh release view "$tag" --json tagName >/dev/null 2>&1; then
+            existing="$(gh release view "$tag" --json assets --jq '.assets[].name')"
+            for file in dist/*; do
+              name="${file##*/}"
+              if printf '%s\n' "$existing" | rg -Fxq -- "$name"; then
+                echo "Preserving existing asset: $name"
+              else
+                gh release upload "$tag" "$file"
+              fi
+            done
+          else
+            gh release create "$tag" dist/* --target "$RELEASE_SHA" --title "$tag" --notes-file CHANGELOG.md
+          fi
