@@ -6,13 +6,15 @@
 
 一套共享文件，多台电脑，多个 Agent。
 
+**Sync options:** [![Sync: iCloud](assets/badges/icloud.svg)](https://support.apple.com/guide/icloud/set-up-icloud-drive-mm203b05aec8/icloud) [![Sync: Syncthing](assets/badges/syncthing.svg)](https://github.com/syncthing/syncthing)
+
 **English** · [简体中文](README_CN.md) · [Getting started (中文)](docs/getting-started.md) · [Architecture](docs/overview.md) · [Tencent comparison](docs/comparison.md)
 
-Keep skills, reviewed long-term memory and MCP setup instructions in one shared folder. Use iCloud or another file synchronization provider to place local copies on each computer. Agents such as Codex, Claude Code, Gemini CLI, Cursor and OpenCode access those files through local entries. Tools, dependencies, credentials and live agent configuration stay local to each environment.
+Keep skills, reviewed long-term memory and MCP setup instructions in one shared folder. Use iCloud, Syncthing or another file synchronization provider to place local copies on each computer. Agents such as Codex, Claude Code, Gemini CLI, Cursor and OpenCode access those files through local entries. Tools, dependencies, credentials and live agent configuration stay local to each environment.
 
 The core uses Markdown, JSON and lightweight scripts. It needs no always-on memory server or database.
 
-用 iCloud 或其他文件同步工具，让各台电脑上的 Agent 共用技能、审阅过的长期记忆和 MCP 安装说明；工具与凭据各机准备，核心无需常驻记忆后台。
+用 iCloud、Syncthing 或其他文件同步工具，让各台电脑上的 Agent 共用技能、审阅过的长期记忆和 MCP 安装说明；工具与凭据各机准备，核心无需常驻记忆后台。
 
 ![macOS, Windows, WSL and standalone Linux architecture](assets/architecture.png)
 
@@ -39,6 +41,19 @@ Computers can read their downloaded local copies even when the office computer i
 | `agent-shared-evolution` | Evidence-based retrospectives, reviewed proposals and follow-up validation |
 
 Project-specific skills may call shared skills. Every new skill should explain its purpose, triggers, steps, dependencies and success criteria. CLI/MCP skills also need host-specific setup instructions. Another computer must prepare its own dependencies and verify real operation. See [authoring skills](docs/authoring-skills.md).
+
+## File synchronization
+
+Choose one synchronization provider for the shared folder. These badges identify optional providers, not bundled software or completed integration tests.
+
+| Option | Suitable use | Platform and availability |
+|---|---|---|
+| [iCloud Drive](https://support.apple.com/guide/icloud/set-up-icloud-drive-mm203b05aec8/icloud) | An existing Apple/iCloud workflow | macOS and Windows; WSL can read the Windows folder. Do not assume an official Linux client. |
+| [Syncthing](https://github.com/syncthing/syncthing) | An open-source choice across all three desktop systems | macOS, Windows and Linux. Devices exchange files while connected and online. |
+
+With Syncthing, an office PC and home Mac need overlapping online time to exchange new changes, or another device that retains and forwards them. A NAS or third computer can fill that role; it is an optional file-sync node, not a required memory server. Already synchronized files remain locally readable. See the [official setup guide](https://docs.syncthing.net/intro/getting-started.html) and [online-device behavior](https://docs.syncthing.net/users/faq.html#what-is-syncthing).
+
+Use a regular local folder for Syncthing, outside another provider's managed folder. Synchronize the project source including `.agents`, then create each machine's Agent links locally. Do not synchronize the Agent home, live MCP configuration or Syncthing's own runtime database. WSL may reuse the Windows-synchronized folder; its Agent runtime still belongs to that distribution. This provider option has been checked against documentation; cross-device operation in this framework has not yet been tested.
 
 ## Download and start
 

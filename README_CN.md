@@ -4,9 +4,11 @@
 
 **一套共享文件，多台电脑，多个 Agent。**
 
+**同步方式：** [![Sync: iCloud](assets/badges/icloud.svg)](https://support.apple.com/guide/icloud/set-up-icloud-drive-mm203b05aec8/icloud) [![Sync: Syncthing](assets/badges/syncthing.svg)](https://github.com/syncthing/syncthing)
+
 [English](README.md) · **简体中文** · [开始使用](docs/getting-started.md) · [架构说明](docs/overview.md) · [与腾讯方案对比](docs/comparison.md)
 
-把技能、审阅过的长期记忆和 MCP 安装说明放进一个共享目录，用 iCloud 或其他文件同步工具送到各台电脑。Codex、Claude Code、Gemini CLI、Cursor、OpenCode 等 Agent 通过各自的本机入口读取它；工具、依赖、登录和凭据在每台机器分别准备。
+把技能、审阅过的长期记忆和 MCP 安装说明放进一个共享目录，用 iCloud、Syncthing 或其他文件同步工具送到各台电脑。Codex、Claude Code、Gemini CLI、Cursor、OpenCode 等 Agent 通过各自的本机入口读取它；工具、依赖、登录和凭据在每台机器分别准备。
 
 核心采用 Markdown、JSON 和轻量脚本，无需常驻记忆服务器或数据库。它是可部署的文件协作框架，配有治理技能与接入工具。
 
@@ -33,6 +35,19 @@
 | `agent-shared-evolution` | 复盘取证、改进提案、审阅记录与实施后的验证 |
 
 项目专属技能可以按任务调用共享技能。新技能必须写清用途、触发条件、步骤、依赖与成功判据；涉及 CLI 或 MCP 时补充各系统安装说明。另一台电脑读到技能后，仍要完成本机依赖与实际调用验证。详见[技能编写指南](docs/authoring-skills.md)。
+
+## 文件同步
+
+同一共享目录选择一个同步工具。上方徽章表示可选方案，不代表已捆绑软件或完成集成实测。
+
+| 方案 | 适合谁 | 平台与同步条件 |
+|---|---|---|
+| [iCloud Drive](https://support.apple.com/guide/icloud/set-up-icloud-drive-mm203b05aec8/icloud) | 已有苹果/iCloud 工作流的使用者 | macOS、Windows；WSL 可读取 Windows 同步目录。不假定 Linux 有官方客户端。 |
+| [Syncthing](https://github.com/syncthing/syncthing) | 希望三个桌面系统使用同一开源同步工具的人 | macOS、Windows、Linux；设备在线且可连接时交换文件。 |
+
+Syncthing 由设备互相同步。办公室电脑和家中电脑要有同时在线的时间，或通过另一台保有新内容的电脑、NAS 接续传递。第三台设备是可选的文件同步节点，不是必须部署的记忆服务器；已经同步的内容可继续本地读取。设置方式见[官方入门指南](https://docs.syncthing.net/intro/getting-started.html)，在线条件见[官方 FAQ](https://docs.syncthing.net/users/faq.html#what-is-syncthing)。
+
+Syncthing 使用普通本地目录，避开其他同步工具托管的目录。同步完整项目（包括隐藏的 `.agents`），再在每台机器建立自己的 Agent 入口；不把 Agent 用户目录、真实 MCP 配置或 Syncthing 自身运行数据库放进来。WSL 可复用 Windows 同步后的文件，依赖与 Agent 仍在各发行版内准备。该选项已核对官方文档，尚未完成本框架的跨设备同步实测。
 
 ## 下载后怎么用
 
