@@ -1,5 +1,7 @@
 # Agent Shared System
 
+[![Source checks](https://github.com/severusgao/agent-shared-system/actions/workflows/check.yml/badge.svg)](https://github.com/severusgao/agent-shared-system/actions/workflows/check.yml)
+
 **一套共享文件，多台电脑，多个 Agent。**
 
 [English](README.md) · **简体中文** · [开始使用](docs/getting-started.md) · [架构说明](docs/overview.md) · [与腾讯方案对比](docs/comparison.md)

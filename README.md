@@ -1,5 +1,7 @@
 # Agent Shared System
 
+[![Source checks](https://github.com/severusgao/agent-shared-system/actions/workflows/check.yml/badge.svg)](https://github.com/severusgao/agent-shared-system/actions/workflows/check.yml)
+
 **One shared file system. Multiple computers. Multiple agents.**
 
 一套共享文件，多台电脑，多个 Agent。
