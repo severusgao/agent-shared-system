@@ -156,6 +156,23 @@ class EnvironmentIdentityTests(unittest.TestCase):
                 )
             self.assertEqual(path.read_text(encoding="utf-8"), original)
 
+    def test_icloud_conflict_copy_blocks_state_update(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "state.json"
+            original = '{"schema_version": 1, "environments": []}\n'
+            path.write_text(original, encoding="utf-8")
+            (Path(tmp) / "state 2.json").write_text(original, encoding="utf-8")
+            identity = build_environment_identity("linux", "server", "gao", "/home/gao")
+            with self.assertRaisesRegex(StateConflict, "conflicted sibling"):
+                record_environment(
+                    path,
+                    identity,
+                    unified_root="/home/gao/.agents",
+                    windows_agents_root=None,
+                    audit={},
+                )
+            self.assertEqual(path.read_text(encoding="utf-8"), original)
+
 
 if __name__ == "__main__":
     unittest.main()

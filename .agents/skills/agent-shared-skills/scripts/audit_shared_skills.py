@@ -10,6 +10,8 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Set
 
+sys.dont_write_bytecode = True
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 SHARED_SCRIPTS = SCRIPT_DIR.parents[2] / "scripts"
 sys.path.insert(0, str(SHARED_SCRIPTS))
@@ -33,6 +35,62 @@ TRIGGER_PATTERNS = (
     re.compile(r"当.+时"),
     re.compile(r"(?:用户|Agent|智能体).*(?:要求|需要|提到|询问)"),
 )
+MANIFEST_RELATIVE = Path("agent-shared-skills") / "references" / "skills_manifest.json"
+MANIFEST_OPTIONAL_FILES = ("agents/openai.yaml", "local/ADAPTATION.md")
+# iCloud names a conflicting copy "name 2.ext" next to "name.ext".
+ICLOUD_CONFLICT = re.compile(r"^(?P<stem>.+) \d+(?P<suffix>\.[^.]+)?$")
+
+
+def manifest_path(root: Path) -> Path:
+    return root / MANIFEST_RELATIVE
+
+
+def load_manifest(root: Path) -> Dict[str, List[str]] | None:
+    path = manifest_path(root)
+    if not path.is_file():
+        return None
+    data = json.loads(path.read_text(encoding="utf-8-sig"))
+    skills = data.get("skills") if isinstance(data, dict) else None
+    if not isinstance(skills, dict) or not all(
+        isinstance(files, list) and all(isinstance(item, str) for item in files)
+        for files in skills.values()
+    ):
+        raise ValueError(f"{path}: `skills` must map skill names to lists of required files")
+    return skills
+
+
+def build_manifest(root: Path) -> Dict[str, Any]:
+    skills: Dict[str, List[str]] = {}
+    for child in sorted(root.iterdir()):
+        if child.is_dir() and (child / "SKILL.md").is_file():
+            skills[child.name] = ["SKILL.md"] + [
+                item for item in MANIFEST_OPTIONAL_FILES if (child / item).is_file()
+            ]
+    return {
+        "version": 1,
+        "description": "Expected shared skills and their required files. Update with "
+        "audit_shared_skills.py --write-manifest after an approved install, update or retirement.",
+        "skills": skills,
+    }
+
+
+def _manifest_findings(root: Path, manifest: Dict[str, List[str]] | None) -> tuple[List[str], List[str]]:
+    errors: List[str] = []
+    warnings: List[str] = []
+    if manifest is None:
+        warnings.append(f"no expected-skills manifest at {MANIFEST_RELATIVE.as_posix()}; missing skills cannot be detected")
+        return errors, warnings
+    for name, files in sorted(manifest.items()):
+        if not (root / name).is_dir():
+            errors.append(f"expected skill missing: {name}")
+            continue
+        for item in files:
+            if not (root / name / item).is_file():
+                errors.append(f"expected file missing: {name}/{item}")
+    for child in sorted(root.iterdir()):
+        if child.is_dir() and (child / "SKILL.md").is_file() and child.name not in manifest:
+            warnings.append(f"skill not in manifest: {child.name}; run --write-manifest after review")
+    return errors, warnings
 
 
 def _same_path(left: Path, right: Path) -> bool:
@@ -97,7 +155,14 @@ def audit(root: Path) -> Dict[str, Any]:
 
     for child in sorted(root.iterdir()):
         if child.is_dir() and not (child / "SKILL.md").is_file():
-            warnings.append(f"directory without SKILL.md: {child.name}")
+            errors.append(f"directory without SKILL.md: {child.name}")
+
+    try:
+        manifest_errors, manifest_warnings = _manifest_findings(root, load_manifest(root))
+    except (OSError, ValueError) as exc:
+        manifest_errors, manifest_warnings = [f"manifest unreadable: {exc}"], []
+    errors.extend(manifest_errors)
+    warnings.extend(manifest_warnings)
 
     seen_names: Set[str] = set()
     for row in rows:
@@ -165,7 +230,9 @@ def audit(root: Path) -> Dict[str, Any]:
         if local_status["exists"] and local_status["matches"] is False:
             warnings.append(f"{folder}: local discovery entry points elsewhere: {local_status.get('resolved')}")
 
-    warnings.extend(_content_warnings(root))
+    content_errors, content_warnings = _content_findings(root)
+    errors.extend(content_errors)
+    warnings.extend(content_warnings)
     likely_overlap = _detect_likely_overlap(rows)
     warnings.extend(likely_overlap)
     if shared_system.get("error"):
@@ -189,13 +256,24 @@ def audit(root: Path) -> Dict[str, Any]:
     }
 
 
-def _content_warnings(root: Path) -> List[str]:
-    """Check explicit Markdown file links; skip code examples, URLs and anchor-only links."""
+def _content_findings(root: Path) -> tuple[List[str], List[str]]:
+    """Check explicit Markdown file links and sync conflict copies.
+
+    Missing Markdown targets and iCloud-style conflict copies are errors; other
+    findings stay warnings. Code examples, URLs and anchor-only links are skipped.
+    """
     import os
     from urllib.parse import unquote, urlsplit
     findings = []
+    problems = []
     excluded = {"__pycache__", ".git", "node_modules", ".venv", ".pytest_cache"}
     for directory, dirs, files in os.walk(root, followlinks=False):
+        names = set(files) | set(dirs)
+        for name in list(files) + list(dirs):
+            match = ICLOUD_CONFLICT.match(name)
+            if match and f"{match.group('stem')}{match.group('suffix') or ''}" in names:
+                rel = (Path(directory) / name).relative_to(root).as_posix()
+                problems.append(f"possible sync conflict copy: {rel}")
         for name in dirs[:]:
             path = Path(directory) / name
             if name in excluded:
@@ -221,8 +299,9 @@ def _content_warnings(root: Path) -> List[str]:
                     continue
                 target = path.parent / value
                 if not target.exists():
-                    findings.append(f"broken local link: {path.relative_to(root).as_posix()} -> {value}")
-    return sorted(set(findings))
+                    message = f"broken local link: {path.relative_to(root).as_posix()} -> {value}"
+                    (problems if value.lower().endswith(".md") else findings).append(message)
+    return sorted(set(problems)), sorted(set(findings))
 
 
 def _detect_likely_overlap(rows: List[Dict[str, Any]]) -> List[str]:
@@ -355,6 +434,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", default=None, help="Shared skills root. Defaults to discovery.")
     parser.add_argument("--format", choices=["json", "markdown"], default="markdown")
+    parser.add_argument(
+        "--write-manifest",
+        action="store_true",
+        help="Record the current complete skill set as the expected manifest. "
+        "Use only after an approved install, update or retirement.",
+    )
     args = parser.parse_args()
 
     if args.root:
@@ -365,6 +450,24 @@ def main() -> int:
             print(json.dumps(resolved, ensure_ascii=False, indent=2), file=sys.stderr)
             return 1
         root = Path(str(resolved["skills_root"]))
+
+    if args.write_manifest:
+        incomplete = [
+            child.name for child in sorted(root.iterdir())
+            if child.is_dir() and not (child / "SKILL.md").is_file()
+        ]
+        if incomplete:
+            print(
+                "Refusing to write manifest: directories without SKILL.md: " + ", ".join(incomplete),
+                file=sys.stderr,
+            )
+            return 1
+        target = manifest_path(root)
+        target.write_text(
+            json.dumps(build_manifest(root), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"Wrote {target}")
 
     result = audit(root)
     if args.format == "json":

@@ -10,6 +10,8 @@ from pathlib import Path
 import stat
 import sys
 
+sys.dont_write_bytecode = True
+
 from evidence import relative_target, safe_local, redact
 
 

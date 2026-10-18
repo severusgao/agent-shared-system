@@ -13,6 +13,8 @@ import sqlite3
 import sys
 import tempfile
 
+sys.dont_write_bytecode = True
+
 SHARED_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(SHARED_ROOT / "scripts"))
 from shared_environment import detect_environment  # noqa: E402

@@ -5,6 +5,7 @@ import copy
 import json
 import os
 import platform as platform_module
+import re
 import tempfile
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
@@ -474,9 +475,11 @@ def _reject_conflicted_siblings(path: Path) -> None:
     parent = path.parent
     if not parent.exists():
         return
+    # iCloud names a conflicting copy "<stem> 2<suffix>" next to the original.
+    icloud_copy = re.compile(re.escape(path.stem) + r" \d+" + re.escape(path.suffix) + "$", re.IGNORECASE)
     for sibling in parent.iterdir():
         name = sibling.name.casefold()
-        if "conflicted copy" in name or "冲突" in name:
+        if "conflicted copy" in name or "冲突" in name or icloud_copy.match(sibling.name):
             raise StateConflict(f"conflicted sibling blocks state update: {sibling}")
 
 

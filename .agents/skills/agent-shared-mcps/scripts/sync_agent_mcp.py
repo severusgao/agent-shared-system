@@ -26,6 +26,8 @@ SHARED_SCRIPT_DIR = SCRIPT_DIR.parents[2] / "scripts"
 if str(SHARED_SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SHARED_SCRIPT_DIR))
 
+sys.dont_write_bytecode = True
+
 from resolve_mcp_root import resolve_mcp_root
 from shared_environment import (  # noqa: E402
     EnvironmentIdentity,

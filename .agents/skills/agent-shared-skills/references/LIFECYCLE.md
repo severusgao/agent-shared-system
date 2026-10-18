@@ -1,7 +1,7 @@
 ---
 tags: [agents, skills, lifecycle]
 created: 2026-07-06
-updated: 2026-10-16
+updated: 2026-10-18
 type: reference
 status: stable
 sources: []
@@ -20,6 +20,26 @@ python3 .agents/scripts/generate-shared-system-readme.py --preview
 Write it within authorization covering the installation/update and related documentation; preserve a review step only when the user reserved it. The generator
 updates only marked generated sections; it does not replace the manual rules in
 `AgentShared/.agents/README.md`.
+
+In the same change, refresh the expected-skills manifest
+`references/skills_manifest.json`:
+
+```bash
+python3 -B .agents/skills/agent-shared-skills/scripts/audit_shared_skills.py --write-manifest
+```
+
+The manifest records which skills and required files (`SKILL.md`, plus
+`agents/openai.yaml` and `local/ADAPTATION.md` when present) should exist. The
+audit reports a missing manifest entry, a directory without `SKILL.md`, a broken
+Markdown link or a sync conflict copy as an error, so file loss from
+synchronization is not mistaken for retirement. Write the manifest only after an
+approved install, update or retirement; the command refuses while any directory
+lacks `SKILL.md`.
+
+The repository ships only `references/skills_manifest.example.json`, which lists
+the core skills. Setup copies it to `skills_manifest.json` when that file is
+missing and never overwrites an existing manifest; the generated manifest is
+local to each installation and stays out of version control.
 
 ## Placement Decision
 

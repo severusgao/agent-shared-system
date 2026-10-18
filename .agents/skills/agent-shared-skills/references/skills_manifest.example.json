@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "description": "Template for the expected shared skills and their required files. Setup copies it to skills_manifest.json when missing; afterwards refresh that file with audit_shared_skills.py --write-manifest after an approved install, update or retirement.",
+  "skills": {
+    "agent-shared-evolution": [
+      "SKILL.md",
+      "agents/openai.yaml"
+    ],
+    "agent-shared-mcps": [
+      "SKILL.md",
+      "agents/openai.yaml"
+    ],
+    "agent-shared-memories": [
+      "SKILL.md",
+      "agents/openai.yaml"
+    ],
+    "agent-shared-skills": [
+      "SKILL.md",
+      "agents/openai.yaml"
+    ]
+  }
+}

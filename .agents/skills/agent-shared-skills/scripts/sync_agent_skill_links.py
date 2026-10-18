@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path, PureWindowsPath
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
+sys.dont_write_bytecode = True
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 SHARED_SCRIPTS_DIR = SCRIPT_DIR.parents[2] / "scripts"
 sys.path.insert(0, str(SHARED_SCRIPTS_DIR))
@@ -163,6 +165,17 @@ def skill_names(root: Path) -> List[str]:
         return []
     return sorted(
         child.name for child in root.iterdir() if child.is_dir() and has_skill_md(child)
+    )
+
+
+def incomplete_skill_dirs(root: Path) -> List[str]:
+    """Shared directories that lost SKILL.md: damaged, not retired."""
+    if not root.is_dir():
+        return []
+    return sorted(
+        child.name
+        for child in root.iterdir()
+        if child.is_dir() and not child.name.startswith((".", "_")) and not has_skill_md(child)
     )
 
 
@@ -619,6 +632,7 @@ def audit(
         "all_recorded": all_recorded,
         "target_warnings": target_warnings or [],
         "shared_skill_count": len(shared),
+        "incomplete_shared_skills": incomplete_skill_dirs(shared_root),
         "local_unified_skill_count": len(local),
         "local_unified_shared_skill_count": len(syncable),
         "local_missing_from_shared": local_state["missing"],
@@ -888,6 +902,15 @@ def render_markdown(result: Dict[str, Any]) -> str:
         f"- Local unified shared-link skills managed here: {result['local_unified_shared_skill_count']}",
         "",
     ]
+
+    if result.get("incomplete_shared_skills"):
+        lines.extend(["## Damaged Shared Skills", ""])
+        lines.append(
+            "These shared directories have no SKILL.md, so they are skipped here. "
+            "Treat this as possible sync loss, not retirement; restore them with agent-shared-skills."
+        )
+        lines.extend(f"- `{name}`" for name in result["incomplete_shared_skills"])
+        lines.append("")
 
     if result["target_warnings"]:
         lines.extend(["## Target Warnings", ""])

@@ -51,6 +51,7 @@ At task completion, the router only identifies and hands off potential durable/r
 - `references/AGENT_TARGETS.md`: Agent skill directory registry, second-layer link rules, and new Agent registration.
 - `references/LIFECYCLE.md`: where shared skills belong and how to create, install, migrate, or retire them.
 - `references/LOCAL_RUNTIME.md`: shared preparation for basic Python, Node and optional Bash; read only for the dependencies the target skill uses.
+- `references/skills_manifest.json`: expected skills and required files, initialized by setup from `skills_manifest.example.json`; the audit treats gaps as errors. Refresh with `--write-manifest` only after an approved lifecycle change.
 - `references/EXTERNAL_CAPABILITIES.md`: how to treat agent-native skills, plugins, MCPs, and profile-specific abilities.
 - `references/UPDATE_POLICY.md`: proposal, approval, validation, and rollback rules for shared skill updates.
 - `references/UPSTREAM_SOURCES.md`: pinned upstream sources and local metadata overlays for third-party skills.

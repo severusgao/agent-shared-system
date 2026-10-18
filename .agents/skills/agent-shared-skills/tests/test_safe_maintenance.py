@@ -195,10 +195,12 @@ class SafeMaintenanceTests(unittest.TestCase):
         cache = self.source / 'alpha' / '__pycache__'
         cache.mkdir()
         (self.source / 'alpha' / 'notes.md').write_text('[missing](absent.md)\n[web](https://example.com)\n`[example](not-a-file.md)`\n')
-        warnings = audit_skills(self.source)['warnings']
+        result = audit_skills(self.source)
+        warnings, errors = result['warnings'], result['errors']
         self.assertTrue(any('generated/vendor' in item for item in warnings))
-        self.assertTrue(any('absent.md' in item for item in warnings))
-        self.assertFalse(any('not-a-file' in item for item in warnings))
+        # A missing Markdown target is a missing document, so it is an error.
+        self.assertTrue(any('absent.md' in item for item in errors))
+        self.assertFalse(any('not-a-file' in item for item in warnings + errors))
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 import unittest
@@ -9,7 +10,7 @@ from pathlib import Path
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
-from audit_shared_skills import _detect_likely_overlap, audit  # noqa: E402
+from audit_shared_skills import _detect_likely_overlap, audit, build_manifest, manifest_path  # noqa: E402
 
 
 def _write_skill(
@@ -148,6 +149,61 @@ class AuditSharedSkillsTests(unittest.TestCase):
         )
 
         self.assertTrue(any("alpha/beta" in item for item in warnings))
+
+    def test_directory_without_skill_md_is_an_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "skills"
+            (root / "lost-skill" / "agents").mkdir(parents=True)
+            _write_skill(root, "kept", "当用户要求诊断问题时使用。")
+
+            result = audit(root)
+
+            self.assertIn("directory without SKILL.md: lost-skill", result["errors"])
+
+    def test_manifest_detects_missing_skill_and_required_file(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "skills"
+            _write_skill(root, "kept", "当用户要求诊断问题时使用。")
+            _write_skill(root, "agent-shared-skills", "当需要审计共享技能时使用。")
+            (root / "kept" / "local").mkdir()
+            (root / "kept" / "local" / "ADAPTATION.md").write_text("x\n", encoding="utf-8")
+            manifest = build_manifest(root)
+            manifest["skills"]["gone"] = ["SKILL.md"]
+            manifest_path(root).parent.mkdir(parents=True)
+            manifest_path(root).write_text(json.dumps(manifest), encoding="utf-8")
+            (root / "kept" / "local" / "ADAPTATION.md").unlink()
+            _write_skill(root, "new-one", "当用户要求新功能时使用。")
+
+            result = audit(root)
+
+            self.assertIn("expected skill missing: gone", result["errors"])
+            self.assertIn("expected file missing: kept/local/ADAPTATION.md", result["errors"])
+            self.assertTrue(any(item.startswith("skill not in manifest: new-one") for item in result["warnings"]))
+
+    def test_without_manifest_only_warns(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "skills"
+            _write_skill(root, "kept", "当用户要求诊断问题时使用。")
+
+            result = audit(root)
+
+            self.assertEqual(result["errors"], [])
+            self.assertTrue(any("no expected-skills manifest" in item for item in result["warnings"]))
+
+    def test_icloud_conflict_copy_and_broken_markdown_link_are_errors(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "skills"
+            _write_skill(root, "kept", "当用户要求诊断问题时使用。")
+            skill = root / "kept"
+            (skill / "SKILL 2.md").write_text("copy\n", encoding="utf-8")
+            (skill / "Chapter 2.md").write_text("[guide](missing.md) ![clip](clip.mp4)\n", encoding="utf-8")
+
+            result = audit(root)
+
+            self.assertIn("possible sync conflict copy: kept/SKILL 2.md", result["errors"])
+            self.assertFalse(any("Chapter 2.md" in item and "conflict" in item for item in result["errors"]))
+            self.assertIn("broken local link: kept/Chapter 2.md -> missing.md", result["errors"])
+            self.assertIn("broken local link: kept/Chapter 2.md -> clip.mp4", result["warnings"])
 
 
 if __name__ == "__main__":

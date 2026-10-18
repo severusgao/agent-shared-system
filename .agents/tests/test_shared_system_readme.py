@@ -84,6 +84,19 @@ class SharedSystemReadmeTests(unittest.TestCase):
         self.assertNotRegex(generated, r"/Users/|[A-Za-z]:\\|/mnt/c/")
         self.assertNotRegex(generated, r"(?i)token|secret|api[_ -]?key")
 
+    def test_write_keeps_existing_line_endings(self):
+        readme = self.agents / "README.md"
+        for newline in ("\r\n", "\n"):
+            readme.write_bytes(BASE_README.replace("\n", newline).encode("utf-8"))
+            self.assertEqual(MODULE.main(["--root", str(self.root), "--write"]), 0)
+            data = readme.read_bytes()
+            self.assertIn(b"demo-skill", data)
+            if newline == "\r\n":
+                self.assertNotIn(b"\n", data.replace(b"\r\n", b""))
+            else:
+                self.assertNotIn(b"\r", data)
+            self.assertEqual(MODULE.main(["--root", str(self.root), "--check"]), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

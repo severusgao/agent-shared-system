@@ -183,7 +183,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"README not found: {readme}", file=sys.stderr)
         return 2
     try:
-        current = readme.read_text(encoding="utf-8")
+        raw = readme.read_bytes()
+        # Keep the file's own line endings so macOS and Windows runs do not flip them.
+        newline = "\r\n" if b"\r\n" in raw else "\n"
+        current = raw.decode("utf-8").replace("\r\n", "\n")
         updated = render_document(root, current)
     except (OSError, UnicodeError, ValueError) as exc:
         print(f"README generation failed: {exc}", file=sys.stderr)
@@ -209,7 +212,8 @@ def main(argv: list[str] | None = None) -> int:
     if current == updated:
         print("No README changes.")
         return 0
-    readme.write_text(updated, encoding="utf-8")
+    with readme.open("w", encoding="utf-8", newline=newline) as handle:
+        handle.write(updated)
     print(f"Updated {readme}")
     return 0
 

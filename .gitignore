@@ -15,6 +15,7 @@ __pycache__/
 .agents/state/*.json
 .agents/mcp/state/*.json
 .agents/skills/*/state/*.json
+.agents/skills/agent-shared-skills/references/skills_manifest.json
 .agents/evolution/*/
 .agents/evolution/decisions.jsonl
 .agents/memories/USER_PROFILE.md

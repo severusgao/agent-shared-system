@@ -15,6 +15,7 @@ from shared_environment import detect_environment  # noqa: E402
 from sync_agent_skill_links import (  # noqa: E402
     audit,
     build_direct_target,
+    incomplete_skill_dirs,
     instance_key,
     normalize_state,
     plan_entry,
@@ -44,6 +45,14 @@ class SyncAgentSkillLinksTests(unittest.TestCase):
 
     def test_wsl_uses_linux_registry_templates(self) -> None:
         self.assertEqual(registry_platform_key("wsl"), "linux")
+
+    def test_directories_without_skill_md_are_reported_as_damaged(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            _write_skill(root, "kept")
+            (root / "lost" / "agents").mkdir(parents=True)
+            (root / "__pycache__").mkdir()
+            self.assertEqual(incomplete_skill_dirs(root), ["lost"])
 
     def test_v1_windows_record_is_preserved_as_legacy(self) -> None:
         state = normalize_state(

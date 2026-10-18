@@ -8,6 +8,10 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
+import sys
+
+sys.dont_write_bytecode = True
+
 from resolve_mcp_root import resolve_mcp_root
 from sync_agent_mcp import (  # noqa: E402
     ALLOWED_RESOLUTION_STATUSES,

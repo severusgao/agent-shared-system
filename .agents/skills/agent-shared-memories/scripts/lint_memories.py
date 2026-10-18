@@ -10,6 +10,10 @@ import re
 from pathlib import Path
 from typing import Any, Mapping, Optional
 
+import sys
+
+sys.dont_write_bytecode = True
+
 from resolve_memories_root import describe_local_entry, resolve
 
 
